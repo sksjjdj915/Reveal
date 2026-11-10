@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- Android 11 起默认查不到别人装了什么：为了看清 QQ 到底在哪、provider 能不能解析 -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
+
+    <queries>
+        <package android:name="com.tencent.mobileqq" />
+        <package android:name="com.tencent.mm" />
+        <provider android:authorities="com.tencent.mobileqq.fileprovider" />
+    </queries>
+
+    <application
+        android:name=".RevealApplication"
+        android:largeHeap="true"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Palette">
+
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
+            android:theme="@style/Theme.Palette">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- 从 QQ / 微信「用其他应用打开」把 PSD 交给本软件 -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:mimeType="image/vnd.adobe.photoshop" />
+                <data android:mimeType="image/x-photoshop" />
+                <data android:mimeType="image/psd" />
+                <data android:mimeType="application/octet-stream" />
+                <data android:mimeType="application/x-photoshop" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/vnd.adobe.photoshop" />
+                <data android:mimeType="image/x-photoshop" />
+                <data android:mimeType="image/psd" />
+                <data android:mimeType="application/octet-stream" />
+            </intent-filter>
+        </activity>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/share_paths" />
+        </provider>
+
+    </application>
+
+</manifest>

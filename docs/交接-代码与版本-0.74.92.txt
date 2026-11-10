@@ -1,0 +1,127 @@
+==================================================================
+Reveal（com.reveal.editor）交接文本 — 0.74.92
+生成时间：2026-11-11
+用途：交给 AI 做代码审查 / 上传 GitHub 前的结构说明
+==================================================================
+
+一、工程根路径
+------------------------------------------------------------------
+工程根目录：E:\deepseek\palette
+模块目录　：E:\deepseek\palette\app
+源码根目录：E:\deepseek\palette\app\src\main\java\com\reveal\editor
+资源目录　：E:\deepseek\palette\app\src\main\res
+随包资源　：E:\deepseek\palette\app\src\main\assets\fonts（16 款 OFL 字体）
+构建配置　：E:\deepseek\palette\build.gradle.kts（根）
+　　　　　　E:\deepseek\palette\settings.gradle.kts
+　　　　　　E:\deepseek\palette\gradle\libs.versions.toml（版本目录）
+　　　　　　E:\deepseek\palette\app\build.gradle.kts（模块、签名、SDK 版本）
+签名文件　：E:\deepseek\palette\.keys\debug.keystore（本地自签，不进版本库）
+本地 Gradle：E:\deepseek\palette\.gradle-home（隔离的 GRADLE_USER_HOME）
+
+二、版本路径
+------------------------------------------------------------------
+applicationId : com.reveal.editor
+versionCode   : 520
+versionName   : "0.74.92"
+compileSdk    : 35
+minSdk        : 26
+targetSdk     : 35
+versionCode/Name 的写入位置：
+　E:\deepseek\palette\app\build.gradle.kts 第 ~13-14 行
+　（本地出包脚本 E:\deepseek\_bump2.cjs 会自动改这两行）
+
+产物路径（编译后）：
+　E:\deepseek\palette\app\build\outputs\apk\debug\app-debug.apk
+　大小 43,177,901 字节（0.74.92）
+桌面副本：
+　%USERPROFILE%\Desktop\Reveal-0.74.92-debug.apk
+（桌面只保留最新一版，旧版会被删除）
+
+三、源码结构（101 个 .kt 文件，按行数排序的前列）
+------------------------------------------------------------------
+app\src\main\java\com\reveal\editor\
+  MainActivity.kt                        入口：有工程开最近一个，没有就建 1080x1620
+  SelfTest.kt                            启动自检
+  ui\
+    CanvasPage.kt          1971 行        新界面主容器（工具栏/参数区/图层/导入导出/调色分发）
+    SketchView.kt         14110 行        核心引擎：图层、笔刷、选区、范围蒙版、滤镜、撤销
+    EditorScreen.kt        3939 行        旧界面（保留未用，勿在审查时误判为主线）
+    Dialogs.kt             1753 行        通用对话框、TabChip/ThinSlider/ParamSlider
+    Panels.kt              1446 行        面板集合
+    NewShell.kt             566 行        模式表 toolsForMode / 顶栏 / 工具行 / 固定工具
+    ColorFxTools.kt         620 行        调色面板（含渐变映射）
+    ColorDocks.kt                         色相饱和度 / 色彩平衡 / 曝光 / 色调分离 等 Dock
+    LevelsDock.kt / CurvesDock.kt         色阶 / 曲线
+    FilterDock.kt                         滤镜参数卡（FxSpec 驱动）
+    FlareStudioDock.kt                    光晕工作室
+    ToolFx.kt               856 行        画笔类工具（污点修复/仿制/涂抹/海绵…）
+    PsExtraMenus.kt / SearchModifyPanels.kt / TransformBar.kt
+    HomeScreen.kt           868 行        首页（旧，未挂在主线上）
+  image\
+    Psd.kt                 2718 行        PSD 读写（含智能对象、文字层、样式块）
+    FilterFx.kt            1641 行        全部滤镜算法（含并行实现）
+    ColorFx.kt              490 行        色彩算法（含渐变映射 LUT、照片滤镜矩阵）
+    HueSat.kt / Vibrance.kt / Tone.kt / Lut3D.kt   调色算法与 3D LUT
+    Selection.kt            868 行        选区算法
+    PsdText.kt / Pix16.kt                 文字与 16 位通道
+    Parallel.kt                           行区间并行工具
+  data\
+    ProjectStore.kt        1091 行        工程读写（.rvl 目录结构）
+    RegionStore.kt                        范围持久化（regions.json）
+    Diag.kt / CrashLog.kt                 诊断日志与崩溃记录
+    Incoming.kt             428 行        外部文件（QQ/微信）URI 转换
+
+四、构建与出包
+------------------------------------------------------------------
+环境变量（本机）：
+  JAVA_HOME       = %USERPROFILE%\.jdks\jbr-21.0.11
+  ANDROID_HOME    = %USERPROFILE%\AppData\Local\Android\Sdk
+  GRADLE_USER_HOME= E:\deepseek\palette\.gradle-home
+
+命令（工作目录 E:\deepseek\palette）：
+  .\gradlew.bat assembleDebug --console=plain --no-daemon --no-build-cache --no-watch-fs "-Pkotlin.incremental=false"
+判据：日志出现 BUILD SUCCESSFUL（PowerShell 5.1 的 $LASTEXITCODE 会假报 1，别用它判断）
+
+已知构建坑：
+  java.net.BindException: Address already in use: bind
+  → 删 E:\deepseek\palette\.gradle-home\daemon 与 registry*.bin，等 30~40 秒重跑
+
+五、文档路径
+------------------------------------------------------------------
+版本修复记录：E:\deepseek\palette\docs\修复记录-<版本号>.md（0.68.14 起逐版一份，共 246 份 .md）
+专题文档：
+  docs\审计-alpha通道.md           alpha 通道静态审计结论
+  docs\测试PSD语料.md              自造 PSD 语料说明
+  docs\测试案例.txt                功能测试清单（与桌面同名文件同步）
+
+六、当前功能状态（0.74.92）
+------------------------------------------------------------------
+已完成：
+- 新界面：顶部模式栏（抠图/调色/排版/修图/绘制/AI）、左侧模式列、底部工具行、参数区在画布下方
+- 图层：组/多选/拖动排序/长按菜单/不透明度/置顶/合并/删
+- 选区：矩形/椭圆/套索/多边形/魔棒/色彩范围/选择主体/羽化/收缩/扩展/边界
+- 范围蒙版（本地调色）：圆/椭圆/矩形，羽化/强度/反转/显示蒙版/运算（新建·相加·相减·相交）
+- 调色 11 项：色阶/曲线/色相饱和度/自然饱和度/亮度对比/黑白/色彩平衡/照片滤镜/渐变映射/曝光度/色调分离
+- 滤镜 30+ 项：含油画/水彩/中间值/蒙尘划痕/减少杂色/智能锐化/光照效果/镜头校正/彩色半调 等
+- 抠图：色带抠图（混合颜色带）、到新层
+- 文字：内容/字号/字体（内嵌 16 款）/颜色/间距/对齐
+- 导出：PNG/JPG、PSD（保留图层/组/文字/调整层/16-32 位）、工程导入导出
+- 活的处理链（0.74.92 新增）：有范围时调色不写像素，改叠加处理链；点「烧录」才落像素并删掉范围
+
+未完成 / 已知问题：
+- 液化/变形/图案图章的专属参数仍偏简单
+- 裁剪与画布大小尚未接
+- AI 模式为占位
+- 曲线「吸管取样」未加
+- 处理链只活在内存：换图层、撤销、重开工程都会失效（不是真调整图层）
+- 全部 0.74.x 只做过编译验证，未做真机回归
+
+七、建议 AI 审查的关注点
+------------------------------------------------------------------
+1. SketchView.kt 每次修改后必须 dropMips()，否则缩小时会看到旧缓存（历史 bug）
+2. 调色预览统一走 previewRegionComposite() + compositeWithMask()，不要在各面板里各写一份混合循环
+3. 图层像素改动后要 pushUndo(Stroke) + markDocDirty，否则撤销失效
+4. EditorScreen 这个 @Composable 已顶到 JVM 单方法 64KB，新面板必须拆成独立 composable
+5. 绘制顺序：先画整层，再 clip 后再画预览（先 clip 会吃掉原层，历史 bug）
+6. 数据类不要带 var 字段直接改（不触发 Compose 重组），要 copy() 写回 SnapshotStateList
+==================================================================

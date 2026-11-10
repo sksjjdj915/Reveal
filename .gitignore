@@ -1,0 +1,27 @@
+*.iml
+.gradle/
+.gradle-home/
+_tmp/
+/tmp/
+/local.properties
+/.idea/
+.DS_Store
+/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.jks
+*.keystore
+keystore.properties
+local.properties
+/app/build/
+
+.android-home/
+.keys/
+.kotlin/
+_backup/
+*.log
+# 历史版本快照只留本地，不进版本库（体积大、含旧版源码）
+_snapshots/
